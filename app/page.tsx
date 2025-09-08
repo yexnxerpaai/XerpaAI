@@ -46,10 +46,16 @@ import {
 const kpiData = {
   xerpaIndex: { value: 847, change: 12.5, trend: "up" },
   influentialFollowers: { value: 156000, change: 8.3, trend: "up" },
-  influentialFollowersEngagement: { value: 42, change: -2.1, trend: "down" },
   totalFollowers: { value: 24.7, change: 15.2, trend: "up" },
   totalEngagement: { value: 89500, change: 18.7, trend: "up" },
   engagementRate: { value: 3.5, change: -0.8, trend: "down" },
+  sentiment: {
+    positive: 78.5,
+    neutral: 15.2,
+    negative: 6.3,
+    change: 5.2,
+    trend: "up",
+  },
 }
 
 const velocitySparklineData = [
@@ -381,9 +387,9 @@ export default function InfluenceGrowthDashboard() {
   const [useSuggested, setUseSuggested] = useState(false)
   const [efficiencyMetric, setEfficiencyMetric] = useState("indexPerExpense")
   const [showExpenseOverlay, setShowExpenseOverlay] = useState(false)
-  const [showAllKOLs, setShowAllKOLs] = useState(false)
-  const [showAllPosts, setShowAllPosts] = useState(false)
-  const [showInfluentialOnly, setShowInfluentialOnly] = useState(false)
+  const [showAllKOLs, setShowAllPosts] = useState(false)
+  const [showAllPosts, setShowInfluentialOnly] = useState(false)
+  const [showInfluentialOnly, setShowAllKOLs] = useState(false)
 
   console.log("[v0] Trend data:", trendData)
   console.log("[v0] Efficiency data:", efficiencyTimeSeriesData)
@@ -530,25 +536,6 @@ export default function InfluenceGrowthDashboard() {
 
           {/* Bottom Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <Card className="border-accent/20">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Influential Followers Engagement
-                </CardTitle>
-                <MessageSquare className="h-4 w-4 text-accent" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-700">{kpiData.influentialFollowersEngagement.value}</div>
-                <div className="flex items-center text-xs mt-1">
-                  {getTrendIcon(kpiData.influentialFollowersEngagement.trend)}
-                  <span className={`ml-1 ${getTrendColor(kpiData.influentialFollowersEngagement.trend)}`}>
-                    {kpiData.influentialFollowersEngagement.change > 0 ? "+" : ""}
-                    {kpiData.influentialFollowersEngagement.change}% this period
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-
             <Card className="border-blue-200">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center justify-between w-full">
@@ -600,6 +587,37 @@ export default function InfluenceGrowthDashboard() {
                     {kpiData.engagementRate.change}% vs last period
                   </span>
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Sentiment</CardTitle>
+                <MessageSquare className="h-4 w-4 text-green-600" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-600">{kpiData.sentiment.positive}%</div>
+                <div className="flex items-center justify-between text-xs mt-1">
+                  <div className="flex items-center">
+                    {getTrendIcon(kpiData.sentiment.trend)}
+                    <span className={`ml-1 ${getTrendColor(kpiData.sentiment.trend)}`}>
+                      {kpiData.sentiment.change > 0 ? "+" : ""}
+                      {kpiData.sentiment.change}% positive
+                    </span>
+                  </div>
+                </div>
+                <div className="text-xs text-muted-foreground mt-2">
+                  Neutral: {kpiData.sentiment.neutral}% • Negative: {kpiData.sentiment.negative}%
+                </div>
+                <button
+                  onClick={() => {
+                    const sentimentSection = document.getElementById("sentiment-analysis")
+                    sentimentSection?.scrollIntoView({ behavior: "smooth" })
+                  }}
+                  className="mt-2 text-xs text-green-600 hover:text-green-700 underline"
+                >
+                  View Details →
+                </button>
               </CardContent>
             </Card>
           </div>
