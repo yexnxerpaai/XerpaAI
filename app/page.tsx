@@ -5,7 +5,6 @@ import { Sidebar } from "@/components/sidebar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -17,7 +16,6 @@ import {
   Award,
   Calendar,
   LineChart,
-  Lightbulb,
   ArrowUpRight,
   ArrowDownRight,
   Minus,
@@ -30,9 +28,8 @@ import {
   BarChart3,
   PieChart,
   Activity,
-  Newspaper,
-  ExternalLink,
   Heart,
+  Brain,
 } from "lucide-react"
 import {
   LineChart as RechartsLineChart,
@@ -205,6 +202,15 @@ const aiInsights = [
       "Our AI analysis reveals that your content performs exceptionally well in South Korea, with engagement rates 40% higher than your global average. Competitor A is struggling in this region with only 15% engagement growth compared to your 40%. Recommendation: Increase budget allocation to Korean market by 25% and consider partnering with local KOLs. Expected ROI: 180% based on current trends. Timeline: Implement within 2 weeks for maximum impact during Q1 2024.",
     icon: TrendingUp,
     color: "green",
+    details:
+      "Detailed analysis reveals a surge in user activity and positive sentiment towards your brand in South Korea. This trend is driven by increased adoption of Web3 technologies and a growing interest in your specific niche. Our models predict continued growth in this region, making it a prime target for expansion.",
+    actions: [
+      "Increase budget allocation to Korean market by 25%",
+      "Partner with local KOLs for targeted campaigns",
+      "Translate content into Korean for better engagement",
+    ],
+    impact: "180% ROI based on current trends",
+    timeline: "Implement within 2 weeks for maximum impact during Q1 2024",
   },
   {
     id: 2,
@@ -215,6 +221,15 @@ const aiInsights = [
       "Data analysis shows partnership announcements consistently outperform other content types by 65%. Your recent collaboration posts averaged 2.4K engagements vs 1.5K for product updates. Competitor analysis reveals they're missing this opportunity entirely. Recommendation: Develop a dedicated partnership content calendar with 2-3 announcements per month. Focus on visual storytelling and behind-the-scenes content. Projected impact: 30% increase in overall engagement within 60 days.",
     icon: MessageSquare,
     color: "blue",
+    details:
+      "In-depth analysis of your content performance reveals a strong correlation between partnership announcements and increased user engagement. This suggests that your audience is highly receptive to collaborative content and values the insights gained from your partnerships.",
+    actions: [
+      "Develop a dedicated partnership content calendar with 2-3 announcements per month",
+      "Focus on visual storytelling and behind-the-scenes content",
+      "Highlight the benefits of your partnerships for your audience",
+    ],
+    impact: "30% increase in overall engagement within 60 days",
+    timeline: "Implement within 30 days for optimal results",
   },
   {
     id: 3,
@@ -225,6 +240,15 @@ const aiInsights = [
       "Advanced timing analysis reveals optimal posting windows with 65% higher interaction rates during Tuesday-Thursday, 2-4 PM UTC. This coincides with peak activity in your key markets (US East Coast morning, Europe afternoon, Asia evening). Your competitors are posting randomly, missing these high-value windows. Recommendation: Schedule all major announcements during these peak times. Use automated scheduling tools to maintain consistency. Expected outcome: 45% improvement in organic reach and 25% increase in conversion rates.",
     icon: Calendar,
     color: "amber",
+    details:
+      "Our advanced timing analysis has identified a peak engagement window during Tuesday-Thursday, 2-4 PM UTC. This coincides with peak activity in your key markets, including the US East Coast morning, Europe afternoon, and Asia evening. By optimizing your posting schedule, you can significantly increase your organic reach and conversion rates.",
+    actions: [
+      "Schedule all major announcements during these peak times",
+      "Use automated scheduling tools to maintain consistency",
+      "Monitor engagement rates during different time slots to refine your strategy",
+    ],
+    impact: "45% improvement in organic reach and 25% increase in conversion rates",
+    timeline: "Implement immediately for best results",
   },
   {
     id: 4,
@@ -235,6 +259,15 @@ const aiInsights = [
       "Market analysis shows a significant content gap in DeFi education space. Your competitors are underperforming by 35% in this category, while your educational content receives 2.8x more engagement than promotional posts. There's a clear opportunity to establish thought leadership. Recommendation: Launch a weekly DeFi education series, collaborate with industry experts, and create interactive content like AMAs and tutorials. Potential market capture: 15-20% increase in market share within 90 days.",
     icon: BarChart3,
     color: "blue",
+    details:
+      "Our market analysis has identified a significant content gap in the DeFi education space. Your competitors are underperforming by 35% in this category, while your educational content receives 2.8x more engagement than promotional posts. This presents a clear opportunity to establish thought leadership and capture a larger share of the market.",
+    actions: [
+      "Launch a weekly DeFi education series",
+      "Collaborate with industry experts to create high-quality content",
+      "Create interactive content like AMAs and tutorials",
+    ],
+    impact: "15-20% increase in market share within 90 days",
+    timeline: "Launch within 4 weeks to capitalize on the current market trend",
   },
   {
     id: 5,
@@ -245,6 +278,15 @@ const aiInsights = [
       "Performance analysis indicates Twitter campaigns are delivering 3x better ROI compared to other platforms. Cost per influence point on Twitter: $0.08 vs LinkedIn: $0.24, Telegram: $0.18. Your current budget allocation doesn't reflect this performance difference. Recommendation: Reallocate 40% of LinkedIn budget to Twitter, maintain Telegram for community building. Implement A/B testing for optimal content mix. Expected result: 25% improvement in overall campaign efficiency and 35% reduction in cost per acquisition.",
     icon: PieChart,
     color: "green",
+    details:
+      "Our performance analysis indicates that Twitter campaigns are delivering 3x better ROI compared to other platforms. The cost per influence point on Twitter is significantly lower than on LinkedIn and Telegram. Your current budget allocation doesn't reflect this performance difference, leading to suboptimal campaign efficiency.",
+    actions: [
+      "Reallocate 40% of LinkedIn budget to Twitter",
+      "Maintain Telegram for community building",
+      "Implement A/B testing for optimal content mix",
+    ],
+    impact: "25% improvement in overall campaign efficiency and 35% reduction in cost per acquisition",
+    timeline: "Implement immediately to maximize ROI",
   },
 ]
 
@@ -341,7 +383,6 @@ export default function InfluenceGrowthDashboard() {
   const [showExpenseOverlay, setShowExpenseOverlay] = useState(false)
   const [showAllKOLs, setShowAllKOLs] = useState(false)
   const [showAllPosts, setShowAllPosts] = useState(false)
-  const [selectedNewsCompetitors, setSelectedNewsCompetitors] = useState<string[]>(["comp-a", "comp-b", "comp-c"])
   const [showInfluentialOnly, setShowInfluentialOnly] = useState(false)
 
   console.log("[v0] Trend data:", trendData)
@@ -384,15 +425,6 @@ export default function InfluenceGrowthDashboard() {
     expenseToFollowersRatio: 6800 / (156000 - 144000), // Current expense / New Influential Followers
   }
 
-  const getFilteredCompetitorNews = () => {
-    return newsData.competitor.filter((news) =>
-      selectedNewsCompetitors.some((compId) => {
-        const competitor = availableCompetitors.find((c) => c.id === compId)
-        return competitor && news.competitor.includes(competitor.name.split(" ")[1]) // Match "A", "B", "C" etc.
-      }),
-    )
-  }
-
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />
@@ -431,84 +463,6 @@ export default function InfluenceGrowthDashboard() {
 
         {/* Main Content */}
         <div className="flex-1 overflow-auto p-6 space-y-6">
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-primary" />
-                Competitor Selection
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="suggested" checked={useSuggested} onCheckedChange={setUseSuggested} />
-                    <label htmlFor="suggested" className="text-sm font-medium">
-                      Use Suggested by XerpaAI
-                    </label>
-                  </div>
-                  {!useSuggested && (
-                    <div className="flex-1 max-w-sm">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                        <Input
-                          placeholder="Search competitors..."
-                          value={competitorSearch}
-                          onChange={(e) => setCompetitorSearch(e.target.value)}
-                          className="pl-10"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {useSuggested ? (
-                  <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
-                    <p className="text-sm text-primary font-medium mb-2">XerpaAI Suggested Competitors:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {availableCompetitors
-                        .filter((comp) => comp.suggested)
-                        .map((comp) => (
-                          <Badge key={comp.id} variant="outline" className="border-primary text-primary">
-                            {comp.name}
-                          </Badge>
-                        ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                    {filteredCompetitors.map((comp) => (
-                      <div key={comp.id} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={comp.id}
-                          checked={selectedCompetitors.includes(comp.id)}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              setSelectedCompetitors((prev) => [...prev, comp.id].slice(0, 5))
-                            } else {
-                              setSelectedCompetitors((prev) => prev.filter((id) => id !== comp.id))
-                            }
-                          }}
-                          disabled={!selectedCompetitors.includes(comp.id) && selectedCompetitors.length >= 5}
-                        />
-                        <label htmlFor={comp.id} className="text-sm">
-                          {comp.name}
-                          {comp.suggested && <span className="text-primary ml-1">★</span>}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                <div className="text-xs text-muted-foreground">
-                  {useSuggested
-                    ? "Using AI-recommended competitors for optimal benchmarking"
-                    : `${selectedCompetitors.length}/5 competitors selected`}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Top Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="border-primary/20">
@@ -650,6 +604,84 @@ export default function InfluenceGrowthDashboard() {
             </Card>
           </div>
 
+          <Card className="border-primary/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-primary" />
+                Competitor Selection
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="suggested" checked={useSuggested} onCheckedChange={setUseSuggested} />
+                    <label htmlFor="suggested" className="text-sm font-medium">
+                      Use Suggested by XerpaAI
+                    </label>
+                  </div>
+                  {!useSuggested && (
+                    <div className="flex-1 max-w-sm">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                        <Input
+                          placeholder="Search competitors..."
+                          value={competitorSearch}
+                          onChange={(e) => setCompetitorSearch(e.target.value)}
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {useSuggested ? (
+                  <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                    <p className="text-sm text-primary font-medium mb-2">XerpaAI Suggested Competitors:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {availableCompetitors
+                        .filter((comp) => comp.suggested)
+                        .map((comp) => (
+                          <Badge key={comp.id} variant="outline" className="border-primary text-primary">
+                            {comp.name}
+                          </Badge>
+                        ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                    {filteredCompetitors.map((comp) => (
+                      <div key={comp.id} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={comp.id}
+                          checked={selectedCompetitors.includes(comp.id)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedCompetitors((prev) => [...prev, comp.id].slice(0, 5))
+                            } else {
+                              setSelectedCompetitors((prev) => prev.filter((id) => id !== comp.id))
+                            }
+                          }}
+                          disabled={!selectedCompetitors.includes(comp.id) && selectedCompetitors.length >= 5}
+                        />
+                        <label htmlFor={comp.id} className="text-sm">
+                          {comp.name}
+                          {comp.suggested && <span className="text-primary ml-1">★</span>}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="text-xs text-muted-foreground">
+                  {useSuggested
+                    ? "Using AI-recommended competitors for optimal benchmarking"
+                    : `${selectedCompetitors.length}/5 competitors selected`}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -744,6 +776,75 @@ export default function InfluenceGrowthDashboard() {
             </CardContent>
           </Card>
 
+          <Card className="border-indigo-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-indigo-600" />
+                Reference - Sentiment Analysis
+              </CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">
+                Analyze sentiment trends across your content and competitor mentions
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h4 className="font-medium text-sm">Sentiment Distribution</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Positive</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="w-3/4 h-full bg-green-500"></div>
+                        </div>
+                        <span className="text-sm font-medium">75%</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Neutral</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="w-1/5 h-full bg-gray-400"></div>
+                        </div>
+                        <span className="text-sm font-medium">20%</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Negative</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="w-1/20 h-full bg-red-500"></div>
+                        </div>
+                        <span className="text-sm font-medium">5%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h4 className="font-medium text-sm">Recent Sentiment Highlights</h4>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-xs font-medium text-green-800">Positive Mention</span>
+                      </div>
+                      <p className="text-sm text-green-900">
+                        "XerpaAI's latest campaign shows impressive engagement rates"
+                      </p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-xs font-medium text-blue-800">Neutral Mention</span>
+                      </div>
+                      <p className="text-sm text-blue-900">"Industry analysis shows mixed results across platforms"</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
@@ -754,7 +855,7 @@ export default function InfluenceGrowthDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {(showAllPosts ? topPosts : topPosts.slice(0, 3)).map((post, index) => (
+                  {(showAllPosts ? topPosts.slice(0, 50) : topPosts.slice(0, 3)).map((post, index) => (
                     <div key={post.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
                       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                         {index + 1}
@@ -790,51 +891,84 @@ export default function InfluenceGrowthDashboard() {
                       onClick={() => setShowAllPosts(!showAllPosts)}
                       className="w-full mt-2"
                     >
-                      {showAllPosts ? "Show Top 3" : `View All ${topPosts.length} Posts`}
+                      {showAllPosts ? "Show Top 3" : `View All ${Math.min(topPosts.length, 50)} Posts`}
                     </Button>
                   )}
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-primary" />
-                  Top Performing KOLs
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {(showAllKOLs ? topKOLs : topKOLs.slice(0, 3)).map((kol, index) => (
-                    <div key={kol.name} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
-                      <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-700 to-green-800 rounded-full flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">{index + 1}</span>
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm">{kol.name}</h4>
-                        <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
-                          <span>{kol.engagement} engagement</span>
-                          <span>{kol.reach} reach</span>
-                          <span>{kol.posts} posts</span>
+            <div className="grid grid-cols-1 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-primary" />
+                    Top Performing KOLs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {(showAllKOLs ? topKOLs.slice(0, 50) : topKOLs.slice(0, 3)).map((kol, index) => (
+                      <div key={kol.name} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-700 to-green-800 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">{index + 1}</span>
                         </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-sm">{kol.name}</h4>
+                          <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                            <span>{kol.engagement} engagement</span>
+                            <span>{kol.reach} reach</span>
+                            <span>{kol.posts} posts</span>
+                          </div>
+                        </div>
+                        <Badge className="bg-primary text-primary-foreground text-xs">Score: {kol.score}</Badge>
                       </div>
-                      <Badge className="bg-primary text-primary-foreground text-xs">Score: {kol.score}</Badge>
-                    </div>
-                  ))}
-                  {topKOLs.length > 3 && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowAllKOLs(!showAllKOLs)}
-                      className="w-full mt-2"
-                    >
-                      {showAllKOLs ? "Show Top 3" : `View All ${topKOLs.length} KOLs`}
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                    {topKOLs.length > 3 && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllKOLs(!showAllKOLs)}
+                        className="w-full mt-2"
+                      >
+                        {showAllKOLs ? "Show Top 3" : `View All ${Math.min(topKOLs.length, 50)} KOLs`}
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-green-600" />
+                    Top Earning KOLs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {topKOLs.slice(0, 3).map((kol, index) => (
+                      <div key={`earning-${kol.name}`} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">{index + 1}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-sm">{kol.name}</h4>
+                          <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                            <span>${(Math.random() * 5000 + 1000).toFixed(0)} earned</span>
+                            <span>{kol.engagement} engagement</span>
+                            <span>{kol.posts} posts</span>
+                          </div>
+                        </div>
+                        <Badge className="bg-green-600 text-white text-xs">
+                          ${(Math.random() * 50 + 10).toFixed(2)}/post
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           <Card>
@@ -852,8 +986,7 @@ export default function InfluenceGrowthDashboard() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="indexPerExpense">Changed Index ÷ Expense</SelectItem>
-                    <SelectItem value="followersPerExpense">New Influential Followers ÷ Expense</SelectItem>
+                    <SelectItem value="indexPerExpense">Cost per Influence Point</SelectItem>
                   </SelectContent>
                 </Select>
                 <div className="flex items-center space-x-2">
@@ -890,20 +1023,6 @@ export default function InfluenceGrowthDashboard() {
                           budget used
                         </div>
                       </div>
-                      <div className="p-3 bg-background rounded-lg border">
-                        <div className="text-xs text-muted-foreground mb-1">Expense ÷ Xerpa Index Change</div>
-                        <div className="text-xl font-bold text-accent">
-                          {efficiencyMetrics.expenseToIndexRatio.toFixed(1)}
-                        </div>
-                        <div className="text-xs text-amber-600 mt-1">Lower is better</div>
-                      </div>
-                      <div className="p-3 bg-background rounded-lg border">
-                        <div className="text-xs text-muted-foreground mb-1">Expense ÷ New Followers</div>
-                        <div className="text-xl font-bold text-orange-600">
-                          ${efficiencyMetrics.expenseToFollowersRatio.toFixed(2)}
-                        </div>
-                        <div className="text-xs text-orange-600 mt-1">Per new follower</div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -938,12 +1057,7 @@ export default function InfluenceGrowthDashboard() {
                           }}
                           formatter={(value: any, name: string) => {
                             if (name === "rawExpense") return [`$${value.toLocaleString()}`, "Raw Expense"]
-                            return [
-                              value.toFixed(3),
-                              efficiencyMetric === "indexPerExpense"
-                                ? "Index/Expense Ratio"
-                                : "Followers/Expense Ratio",
-                            ]
+                            return [value.toFixed(3), "Cost per Influence Point"]
                           }}
                           labelStyle={{ color: "#374151", fontWeight: "600" }}
                         />
@@ -975,10 +1089,9 @@ export default function InfluenceGrowthDashboard() {
                   </div>
                   <div className="mt-4 p-3 bg-muted/20 rounded-lg">
                     <p className="text-sm text-muted-foreground">
-                      <strong>Efficiency Insight:</strong>{" "}
-                      {efficiencyMetric === "indexPerExpense"
-                        ? "Higher values indicate better efficiency in growing influence relative to spending. Current trend shows improving efficiency over the past month."
-                        : "Higher values indicate better efficiency in acquiring influential followers relative to spending. Your cost per follower has improved by 37% since November."}
+                      <strong>Efficiency Insight:</strong> Lower values indicate better efficiency in growing influence
+                      relative to spending. Current trend shows improving efficiency over the past month with a 23%
+                      reduction in cost per influence point.
                       {showExpenseOverlay &&
                         " The dashed orange line shows raw expense trends, helping identify spending patterns."}
                     </p>
@@ -988,195 +1101,70 @@ export default function InfluenceGrowthDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-blue-200">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Newspaper className="w-5 h-5 text-blue-600" />
-                News Collections
+                <Brain className="w-5 h-5 text-primary" />
+                AI Insights & Recommendations
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
-                Latest news and updates from your company, competitors, and industry
+                AI-powered analysis and actionable recommendations for your influence growth strategy
               </p>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Client News */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b border-green-200">
-                    <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                    <h3 className="font-semibold text-green-800">Client News</h3>
-                  </div>
-                  <div className="space-y-3">
-                    {newsData.client.map((news) => (
-                      <div key={news.id} className="p-3 bg-green-50 rounded-lg border border-green-200">
-                        <h4 className="text-sm font-medium text-green-900 leading-tight mb-2">{news.headline}</h4>
-                        <div className="flex items-center justify-between text-xs text-green-700">
-                          <span className="flex items-center gap-1">
-                            <ExternalLink className="w-3 h-3" />
-                            {news.source}
-                          </span>
-                          <span>{new Date(news.date).toLocaleDateString()}</span>
-                        </div>
-                        <Badge variant="outline" className="mt-2 text-xs border-green-300 text-green-700">
-                          {news.category}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Competitor News */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-orange-200">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-orange-600 rounded-full"></div>
-                      <h3 className="font-semibold text-orange-800">Competitor News</h3>
-                    </div>
-                    <Select
-                      value={selectedNewsCompetitors.length === availableCompetitors.length ? "all" : "custom"}
-                      onValueChange={(value) => {
-                        if (value === "all") {
-                          setSelectedNewsCompetitors(availableCompetitors.map((c) => c.id))
-                        }
-                      }}
-                    >
-                      <SelectTrigger className="w-24 h-6 text-xs">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
-                        <SelectItem value="custom">Custom</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Competitor Selection Checkboxes */}
-                  <div className="grid grid-cols-2 gap-2 mb-3">
-                    {availableCompetitors.slice(0, 4).map((comp) => (
-                      <div key={comp.id} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`news-${comp.id}`}
-                          checked={selectedNewsCompetitors.includes(comp.id)}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              setSelectedNewsCompetitors((prev) => [...prev, comp.id])
-                            } else {
-                              setSelectedNewsCompetitors((prev) => prev.filter((id) => id !== comp.id))
-                            }
-                          }}
-                        />
-                        <label htmlFor={`news-${comp.id}`} className="text-xs">
-                          {comp.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="space-y-3">
-                    {getFilteredCompetitorNews().map((news) => (
-                      <div key={news.id} className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                        <h4 className="text-sm font-medium text-orange-900 leading-tight mb-2">{news.headline}</h4>
-                        <div className="flex items-center justify-between text-xs text-orange-700">
-                          <span className="flex items-center gap-1">
-                            <ExternalLink className="w-3 h-3" />
-                            {news.source}
-                          </span>
-                          <span>{new Date(news.date).toLocaleDateString()}</span>
-                        </div>
-                        <Badge variant="outline" className="mt-2 text-xs border-orange-300 text-orange-700">
-                          {news.competitor}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Industry News */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b border-purple-200">
-                    <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
-                    <h3 className="font-semibold text-purple-800">Industry News</h3>
-                  </div>
-                  <div className="space-y-3">
-                    {newsData.industry.map((news) => (
-                      <div key={news.id} className="p-3 bg-purple-50 rounded-lg border border-purple-200">
-                        <h4 className="text-sm font-medium text-purple-900 leading-tight mb-2">{news.headline}</h4>
-                        <div className="flex items-center justify-between text-xs text-purple-700">
-                          <span className="flex items-center gap-1">
-                            <ExternalLink className="w-3 h-3" />
-                            {news.source}
-                          </span>
-                          <span>{new Date(news.date).toLocaleDateString()}</span>
-                        </div>
-                        <Badge variant="outline" className="mt-2 text-xs border-purple-300 text-purple-700">
-                          {news.category}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* AI Insights & Recommendations */}
-          <Card className="border-accent/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-accent" />
-                AI Insights & Recommendations
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {aiInsights.map((insight) => {
-                  const IconComponent = insight.icon
-                  const isExpanded = expandedInsights.includes(insight.id)
-                  const colorClasses = {
-                    green: "bg-green-50 border-green-200 text-green-800",
-                    blue: "bg-blue-50 border-blue-200 text-blue-800",
-                    amber: "bg-amber-50 border-amber-200 text-amber-800",
-                  }
-                  const iconColors = {
-                    green: "text-green-600",
-                    blue: "text-blue-600",
-                    amber: "text-amber-600",
-                  }
-
-                  return (
-                    <Collapsible key={insight.id} open={isExpanded} onOpenChange={() => toggleInsight(insight.id)}>
-                      <div className={`rounded-lg border ${colorClasses[insight.color as keyof typeof colorClasses]}`}>
-                        <CollapsibleTrigger asChild>
-                          <Button variant="ghost" className="w-full p-4 justify-start hover:bg-transparent">
-                            <div className="flex items-start gap-3 w-full">
-                              <IconComponent
-                                className={`w-5 h-5 flex-shrink-0 mt-0.5 ${iconColors[insight.color as keyof typeof iconColors]}`}
-                              />
-                              <div className="flex-1 text-left">
-                                <div className="flex items-center justify-between">
-                                  <h4 className="font-medium">{insight.title}</h4>
-                                  {isExpanded ? (
-                                    <ChevronUp className="w-4 h-4 flex-shrink-0" />
-                                  ) : (
-                                    <ChevronDown className="w-4 h-4 flex-shrink-0" />
-                                  )}
-                                </div>
-                                <p className="text-sm mt-1 opacity-80">{insight.summary}</p>
-                              </div>
-                            </div>
-                          </Button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                          <div className="px-4 pb-4">
-                            <div className="pl-8">
-                              <p className="text-sm">{insight.detail}</p>
-                            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {aiInsights.map((insight) => (
+                  <Card key={insight.id} className="border-l-4 border-l-primary">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`p-2 rounded-lg ${insight.color}`}>
+                            <insight.icon className="w-4 h-4 text-white" />
                           </div>
-                        </CollapsibleContent>
+                          <CardTitle className="text-sm">{insight.category}</CardTitle>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => toggleInsight(insight.id)}
+                          className="h-6 w-6 p-0"
+                        >
+                          {expandedInsights.includes(insight.id) ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </Button>
                       </div>
-                    </Collapsible>
-                  )
-                })}
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-muted-foreground mb-2">{insight.summary}</p>
+                      {expandedInsights.includes(insight.id) && (
+                        <div className="space-y-3 mt-3 pt-3 border-t border-border">
+                          <div>
+                            <h5 className="text-xs font-medium text-muted-foreground mb-1">DETAILED ANALYSIS</h5>
+                            <p className="text-sm">{insight.details}</p>
+                          </div>
+                          <div>
+                            <h5 className="text-xs font-medium text-muted-foreground mb-1">RECOMMENDED ACTIONS</h5>
+                            <ul className="text-sm space-y-1">
+                              {insight.actions.map((action, index) => (
+                                <li key={index} className="flex items-start gap-2">
+                                  <div className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                                  <span>{action}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t border-border">
+                            <span>Impact: {insight.impact}</span>
+                            <span>Timeline: {insight.timeline}</span>
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </CardContent>
           </Card>
