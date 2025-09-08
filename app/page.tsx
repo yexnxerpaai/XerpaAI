@@ -863,7 +863,7 @@ export default function InfluenceGrowthDashboard() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -916,77 +916,75 @@ export default function InfluenceGrowthDashboard() {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-primary" />
-                    Top Performing KOLs
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {(showAllKOLs ? topKOLs.slice(0, 50) : topKOLs.slice(0, 3)).map((kol, index) => (
-                      <div key={kol.name} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-700 to-green-800 rounded-full flex items-center justify-center">
-                          <span className="text-white font-bold text-sm">{index + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-sm">{kol.name}</h4>
-                          <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
-                            <span>{kol.engagement} engagement</span>
-                            <span>{kol.reach} reach</span>
-                            <span>{kol.posts} posts</span>
-                          </div>
-                        </div>
-                        <Badge className="bg-primary text-primary-foreground text-xs">Score: {kol.score}</Badge>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-primary" />
+                  Top Performing KOLs
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {(showAllKOLs ? topKOLs.slice(0, 50) : topKOLs.slice(0, 3)).map((kol, index) => (
+                    <div key={kol.name} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                      <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-700 to-green-800 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">{index + 1}</span>
                       </div>
-                    ))}
-                    {topKOLs.length > 3 && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowAllKOLs(!showAllKOLs)}
-                        className="w-full mt-2"
-                      >
-                        {showAllKOLs ? "Show Top 3" : `View All ${Math.min(topKOLs.length, 50)} KOLs`}
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm">{kol.name}</h4>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                          <span>{kol.engagement} engagement</span>
+                          <span>{kol.reach} reach</span>
+                          <span>{kol.posts} posts</span>
+                        </div>
+                      </div>
+                      <Badge className="bg-primary text-primary-foreground text-xs">Score: {kol.score}</Badge>
+                    </div>
+                  ))}
+                  {topKOLs.length > 3 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowAllKOLs(!showAllKOLs)}
+                      className="w-full mt-2"
+                    >
+                      {showAllKOLs ? "Show Top 3" : `View All ${Math.min(topKOLs.length, 50)} KOLs`}
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <DollarSign className="w-5 h-5 text-green-600" />
-                    Top Earning KOLs
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {topKOLs.slice(0, 3).map((kol, index) => (
-                      <div key={`earning-${kol.name}`} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
-                          <span className="text-white font-bold text-sm">{index + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-sm">{kol.name}</h4>
-                          <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
-                            <span>${(Math.random() * 5000 + 1000).toFixed(0)} earned</span>
-                            <span>{kol.engagement} engagement</span>
-                            <span>{kol.posts} posts</span>
-                          </div>
-                        </div>
-                        <Badge className="bg-green-600 text-white text-xs">
-                          ${(Math.random() * 50 + 10).toFixed(2)}/post
-                        </Badge>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-green-600" />
+                  Top Earning KOLs
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {topKOLs.slice(0, 3).map((kol, index) => (
+                    <div key={`earning-${kol.name}`} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                      <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">{index + 1}</span>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm">{kol.name}</h4>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                          <span>${(Math.random() * 5000 + 1000).toFixed(0)} earned</span>
+                          <span>{kol.engagement} engagement</span>
+                          <span>{kol.posts} posts</span>
+                        </div>
+                      </div>
+                      <Badge className="bg-green-600 text-white text-xs">
+                        ${(Math.random() * 50 + 10).toFixed(2)}/post
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <Card>
