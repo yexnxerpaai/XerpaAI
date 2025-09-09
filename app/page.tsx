@@ -379,6 +379,72 @@ const newsData = {
   ],
 }
 
+const telegramData = {
+  totalMembers: { value: 45200, change: 22.3, trend: "up" },
+  totalMessages: { value: 1847, change: 15.7, trend: "up" },
+  totalEmoji: { value: 8934, change: 28.1, trend: "up" },
+}
+
+const telegramMessages = [
+  {
+    id: 1,
+    snippet: "🚀 Excited to announce our new partnership with...",
+    kolName: "@cryptoinfluencer",
+    emojiCount: 234,
+    timestamp: "2h ago",
+  },
+  {
+    id: 2,
+    snippet: "Market analysis: The recent trends show...",
+    kolName: "@blockchainexpert",
+    emojiCount: 189,
+    timestamp: "4h ago",
+  },
+  {
+    id: 3,
+    snippet: "Join our community discussion about DeFi...",
+    kolName: "@defimaster",
+    emojiCount: 156,
+    timestamp: "6h ago",
+  },
+  // Add more mock data for up to 50 items
+  ...Array.from({ length: 47 }, (_, i) => ({
+    id: i + 4,
+    snippet: `Sample Telegram message ${i + 4}...`,
+    kolName: `@kol${i + 4}`,
+    emojiCount: Math.floor(Math.random() * 150) + 50,
+    timestamp: `${i + 8}h ago`,
+  })),
+]
+
+const telegramKOLs = [
+  {
+    name: "@cryptoinfluencer",
+    totalMessages: 45,
+    totalEmoji: 2340,
+    avgEmojiPerMessage: 52,
+  },
+  {
+    name: "@blockchainexpert",
+    totalMessages: 38,
+    totalEmoji: 1890,
+    avgEmojiPerMessage: 49.7,
+  },
+  {
+    name: "@defimaster",
+    totalMessages: 32,
+    totalEmoji: 1560,
+    avgEmojiPerMessage: 48.8,
+  },
+  // Add more mock data for up to 50 items
+  ...Array.from({ length: 47 }, (_, i) => ({
+    name: `@telegramkol${i + 4}`,
+    totalMessages: Math.floor(Math.random() * 40) + 10,
+    totalEmoji: Math.floor(Math.random() * 1500) + 500,
+    avgEmojiPerMessage: Math.floor(Math.random() * 30) + 20,
+  })),
+]
+
 export default function InfluenceGrowthDashboard() {
   const [timePeriod, setTimePeriod] = useState("30d")
   const [expandedInsights, setExpandedInsights] = useState<number[]>([])
@@ -390,6 +456,10 @@ export default function InfluenceGrowthDashboard() {
   const [showAllKOLs, setShowAllPosts] = useState(false)
   const [showAllPosts, setShowInfluentialOnly] = useState(false)
   const [showInfluentialOnly, setShowAllKOLs] = useState(false)
+  const [showAllTelegramMessages, setShowAllTelegramMessages] = useState(false)
+  const [showAllTelegramKOLs, setShowAllTelegramKOLs] = useState(false)
+
+  const hasTelegramTasks = true // This would be determined by checking if any tasks include Telegram-related activities
 
   console.log("[v0] Trend data:", trendData)
   console.log("[v0] Efficiency data:", efficiencyTimeSeriesData)
@@ -621,6 +691,72 @@ export default function InfluenceGrowthDashboard() {
               </CardContent>
             </Card>
           </div>
+
+          {hasTelegramTasks && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              <Card className="border-cyan-200">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Total Telegram Members</CardTitle>
+                  <Users className="h-4 w-4 text-cyan-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-cyan-600">
+                    {telegramData.totalMembers.value.toLocaleString()}
+                  </div>
+                  <div className="flex items-center text-xs mt-1">
+                    {getTrendIcon(telegramData.totalMembers.trend)}
+                    <span className={`ml-1 ${getTrendColor(telegramData.totalMembers.trend)}`}>
+                      {telegramData.totalMembers.change > 0 ? "+" : ""}
+                      {telegramData.totalMembers.change}% vs last period
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Sum of all group members across KOL channels</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-teal-200">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    Total Telegram Messages Sent
+                  </CardTitle>
+                  <MessageSquare className="h-4 w-4 text-teal-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-teal-600">
+                    {telegramData.totalMessages.value.toLocaleString()}
+                  </div>
+                  <div className="flex items-center text-xs mt-1">
+                    {getTrendIcon(telegramData.totalMessages.trend)}
+                    <span className={`ml-1 ${getTrendColor(telegramData.totalMessages.trend)}`}>
+                      {telegramData.totalMessages.change > 0 ? "+" : ""}
+                      {telegramData.totalMessages.change}% vs last period
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Total messages sent by participating KOLs</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-amber-200">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Total Emoji Received</CardTitle>
+                  <Heart className="h-4 w-4 text-amber-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-amber-600">
+                    {telegramData.totalEmoji.value.toLocaleString()}
+                  </div>
+                  <div className="flex items-center text-xs mt-1">
+                    {getTrendIcon(telegramData.totalEmoji.trend)}
+                    <span className={`ml-1 ${getTrendColor(telegramData.totalEmoji.trend)}`}>
+                      {telegramData.totalEmoji.change > 0 ? "+" : ""}
+                      {telegramData.totalEmoji.change}% vs last period
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Sum of all emoji reactions across messages</p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           <Card className="border-primary/20">
             <CardHeader>
@@ -863,7 +999,9 @@ export default function InfluenceGrowthDashboard() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div
+            className={`grid gap-6 ${hasTelegramTasks ? "grid-cols-1 lg:grid-cols-5" : "grid-cols-1 lg:grid-cols-3"}`}
+          >
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -874,7 +1012,10 @@ export default function InfluenceGrowthDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {(showAllPosts ? topPosts.slice(0, 50) : topPosts.slice(0, 3)).map((post, index) => (
-                    <div key={post.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                    <div
+                      key={post.id}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+                    >
                       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                         {index + 1}
                       </div>
@@ -926,7 +1067,10 @@ export default function InfluenceGrowthDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {(showAllKOLs ? topKOLs.slice(0, 50) : topKOLs.slice(0, 3)).map((kol, index) => (
-                    <div key={kol.name} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                    <div
+                      key={kol.name}
+                      className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+                    >
                       <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-700 to-green-800 rounded-full flex items-center justify-center">
                         <span className="text-white font-bold text-sm">{index + 1}</span>
                       </div>
@@ -965,7 +1109,10 @@ export default function InfluenceGrowthDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {topKOLs.slice(0, 3).map((kol, index) => (
-                    <div key={`earning-${kol.name}`} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30">
+                    <div
+                      key={`earning-${kol.name}`}
+                      className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+                    >
                       <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center">
                         <span className="text-white font-bold text-sm">{index + 1}</span>
                       </div>
@@ -985,6 +1132,102 @@ export default function InfluenceGrowthDashboard() {
                 </div>
               </CardContent>
             </Card>
+
+            {hasTelegramTasks && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-cyan-600" />
+                    TG Messages Ranking
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {(showAllTelegramMessages ? telegramMessages.slice(0, 50) : telegramMessages.slice(0, 3)).map(
+                      (message, index) => (
+                        <div
+                          key={message.id}
+                          className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-600 text-white text-xs font-bold flex items-center justify-center">
+                            {index + 1}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm text-foreground truncate">{message.snippet}</p>
+                            <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                              <span>{message.kolName}</span>
+                              <span>{message.timestamp}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1 text-amber-600">
+                            <Heart className="w-3 h-3" />
+                            <span className="text-sm font-medium">{message.emojiCount}</span>
+                          </div>
+                        </div>
+                      ),
+                    )}
+                    {telegramMessages.length > 3 && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllTelegramMessages(!showAllTelegramMessages)}
+                        className="w-full mt-2"
+                      >
+                        {showAllTelegramMessages
+                          ? "Show Top 3"
+                          : `View All ${Math.min(telegramMessages.length, 50)} Messages`}
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {hasTelegramTasks && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-teal-600" />
+                    TG Performing KOLs
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {(showAllTelegramKOLs ? telegramKOLs.slice(0, 50) : telegramKOLs.slice(0, 3)).map((kol, index) => (
+                      <div
+                        key={kol.name}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors"
+                      >
+                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">{index + 1}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-sm">{kol.name}</h4>
+                          <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                            <span>{kol.totalMessages} messages</span>
+                            <span>Avg: {kol.avgEmojiPerMessage} emoji/msg</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 text-amber-600">
+                          <Heart className="w-3 h-3" />
+                          <span className="text-sm font-medium">{kol.totalEmoji}</span>
+                        </div>
+                      </div>
+                    ))}
+                    {telegramKOLs.length > 3 && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAllTelegramKOLs(!showAllTelegramKOLs)}
+                        className="w-full mt-2"
+                      >
+                        {showAllTelegramKOLs ? "Show Top 3" : `View All ${Math.min(telegramKOLs.length, 50)} KOLs`}
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           <Card>
